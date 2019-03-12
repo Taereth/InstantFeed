@@ -22,3 +22,8 @@ yarn-error.log*
 
 # MongoDB Access
 keys.json
+
+# Google Cloud
+
+hslu18-orell-58ab05531b2f.json
+.env
