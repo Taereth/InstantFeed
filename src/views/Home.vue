@@ -9,6 +9,7 @@
   ref="fileinput"
   >
 <button @click="upload">Upload</button>
+<button @click="deleteAll">Delete All Files</button>
 <img  :src="cloudimage">
 
   </div>
@@ -36,6 +37,12 @@ export default {
       .then(mytext => {
         this.cloudimage = mytext;
       })
+    },
+    deleteAll: function(){
+      fetch("deletesAll", {
+        method: "POST"
+      })
+      .then(response => {return response.text();})
     }
   }
 };
