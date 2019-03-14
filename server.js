@@ -65,7 +65,11 @@ app.post("/uploads", multer.single("file"),(req,res,next)=>{
     return;
   }
 
-  const blob = bucket.file(req.file.originalname);
+  var filename = new Date().getTime();
+  var fileending = req.file.originalname.split('.').pop();
+  filename = filename + "." + fileending;
+
+  const blob = bucket.file(filename);
   const blobStream = blob.createWriteStream({
     resumable: false,
   })
@@ -120,6 +124,8 @@ app.get("/getImages", (req,res,next)=>{
   })
 })
 
+//TODO: Sinnvolles Löschsystem
+//cleanup();
 
 
 http.listen(process.env.PORT || 8080, function(){
@@ -176,20 +182,26 @@ function deleteFromMongoDB(collectionName) {
         photo_urls.push(jobject.name);
       }
 
-      cursor.forEach(iterateFunc);
+      function thenFunc() {
 
-      collection.deleteMany({}, (err, result) =>{
-        if (err){
-          throw err;
-        }
+        collection.deleteMany({}, (err, result) =>{
+          if (err){
+            throw err;
+          }
 
-        console.log("resolving promise");
+          console.log(photo_urls);
 
-        resolve(photo_urls);
-        client.close();
+          resolve(photo_urls);
+          client.close();
 
 
-      })
+        })
+
+      }
+
+      cursor.forEach(iterateFunc, thenFunc);
+
+
 
     })
 
@@ -204,8 +216,6 @@ function deleteFromMongoDB(collectionName) {
 
 function getImages(collectionName) {
 
-
-
     var promise2 = new Promise((resolve,reject)=>{
 
       var photo_urls = [];
@@ -218,24 +228,78 @@ function getImages(collectionName) {
         const db = client.db(nconf.get("mongoDatabase"));
         const collection = db.collection(collectionName);
 
-        //Change Value in find to change files to be deleted
 
         var cursor = collection.find({});
 
         function iterateFunc(doc) {
           var jobject = JSON.parse(JSON.stringify(doc, null, 4));
-          photo_urls.push(jobject.name);
+          photo_urls.push(jobject.url);
+        }
+        function thenFunc() {
+          resolve(photo_urls);
+          client.close();
         }
 
-        cursor.forEach(iterateFunc);
+        cursor.forEach(iterateFunc, thenFunc);
 
-        resolve(photo_urls);
-        client.close();
+
+
+
+
 
       })
 
     })
 
     return promise2;
+
+}
+
+//Delete all but the 20 newest entries in the mongoDB periodically
+
+function cleanup(){
+
+console.log("in cleanup");
+
+  setInterval(function(){
+
+    console.log("in cleanup interval");
+
+      var promise1 = new Promise((resolve,reject)=>{
+
+        var photo_urls = [];
+
+        mongodb.MongoClient.connect(uri, { useNewUrlParser: false }, (err, client) => {
+          if (err) {
+            throw err;
+          }
+
+          const db = client.db(nconf.get("mongoDatabase"));
+          const collection = db.collection("photos");
+
+          var deletethreshold = new Date( Date.now() - 1000 * 60 );
+
+
+
+          console.log(new Date());
+          console.log(deletethreshold);
+
+          collection.deleteMany({
+            "date": { $lt : new Date(deletethreshold).toISOString()}
+          })
+
+          resolve();
+          client.close();
+
+
+
+        })
+
+      })
+
+      return promise1;
+
+
+  },6000)
 
 }
