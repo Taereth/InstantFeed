@@ -34,6 +34,7 @@ const bucket = storage.bucket(process.env.GCLOUD_STORAGE_BUCKET);
 
 
 var MongoClient = require('mongodb').MongoClient;
+const uri = `mongodb://${user}:${pass}@instantcluster-shard-00-00-z05ud.gcp.mongodb.net:27017,instantcluster-shard-00-01-z05ud.gcp.mongodb.net:27017,instantcluster-shard-00-02-z05ud.gcp.mongodb.net:27017/test?ssl=true&replicaSet=InstantCluster-shard-0&authSource=admin&retryWrites=true`;
 
 // serve the index.html as starting page
 app.get('/', function (req, res) {
@@ -111,6 +112,14 @@ app.post("/deletesAll", (req,res,next)=>{
   })
 })
 
+app.get("/getImages", (req,res,next)=>{
+  console.log("Called getImages");
+  getImages("photos")
+  .then(urls=>{
+    res.json(urls);
+  })
+})
+
 
 
 http.listen(process.env.PORT || 8080, function(){
@@ -121,7 +130,6 @@ http.listen(process.env.PORT || 8080, function(){
 //Store Object into Mongo DB
 function storeIntoMongoDB(object, collectionName) {
 
-  var uri = `mongodb://${user}:${pass}@instantcluster-shard-00-00-z05ud.gcp.mongodb.net:27017,instantcluster-shard-00-01-z05ud.gcp.mongodb.net:27017,instantcluster-shard-00-02-z05ud.gcp.mongodb.net:27017/test?ssl=true&replicaSet=InstantCluster-shard-0&authSource=admin&retryWrites=true`;
 
   mongodb.MongoClient.connect(uri, { useNewUrlParser: false }, (err, client) => {
     if (err) {
@@ -150,8 +158,6 @@ function deleteFromMongoDB(collectionName) {
   var promise1 = new Promise((resolve,reject)=>{
 
     var photo_urls = [];
-
-    var uri = `mongodb://${user}:${pass}@instantcluster-shard-00-00-z05ud.gcp.mongodb.net:27017,instantcluster-shard-00-01-z05ud.gcp.mongodb.net:27017,instantcluster-shard-00-02-z05ud.gcp.mongodb.net:27017/test?ssl=true&replicaSet=InstantCluster-shard-0&authSource=admin&retryWrites=true`;
 
     mongodb.MongoClient.connect(uri, { useNewUrlParser: false }, (err, client) => {
       if (err) {
@@ -191,5 +197,45 @@ function deleteFromMongoDB(collectionName) {
 
   return promise1;
 
+
+}
+
+//Returns an Array with all active Images from the mongoDB
+
+function getImages(collectionName) {
+
+
+
+    var promise2 = new Promise((resolve,reject)=>{
+
+      var photo_urls = [];
+
+      mongodb.MongoClient.connect(uri, { useNewUrlParser: false }, (err, client) => {
+        if (err) {
+          throw err;
+        }
+
+        const db = client.db(nconf.get("mongoDatabase"));
+        const collection = db.collection(collectionName);
+
+        //Change Value in find to change files to be deleted
+
+        var cursor = collection.find({});
+
+        function iterateFunc(doc) {
+          var jobject = JSON.parse(JSON.stringify(doc, null, 4));
+          photo_urls.push(jobject.name);
+        }
+
+        cursor.forEach(iterateFunc);
+
+        resolve(photo_urls);
+        client.close();
+
+      })
+
+    })
+
+    return promise2;
 
 }

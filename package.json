@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build",
+    "build": "vue-cli-service build --mode development",
     "lint": "vue-cli-service lint",
     "start": "node server.js"
   },
@@ -14,11 +14,14 @@
     "body-parser": "^1.18.3",
     "dotenv": "^6.2.0",
     "express": "^4.16.4",
+    "lodash": "^4.17.11",
     "mongodb": "^3.1.13",
     "multer": "^1.4.1",
     "nconf": "^0.10.0",
     "vue": "^2.6.6",
-    "vue-router": "^3.0.1"
+    "vue-router": "^3.0.1",
+    "vue-web-cam": "^1.4.3",
+    "vue-webcam": "^2.0.4"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^3.1.1",
@@ -41,7 +44,7 @@
       "plugin:vue/essential",
       "@vue/prettier"
     ],
-    "rules": {},
+    "rules": {"no-console": "off"},
     "parserOptions": {
       "parser": "babel-eslint"
     }
