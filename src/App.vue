@@ -37,6 +37,8 @@
 .webimage {
   width: 20%;
   height: auto;
+  position: absolute;
+
 }
 #app {
   font-family: "Avenir", Helvetica, Arial, sans-serif;
