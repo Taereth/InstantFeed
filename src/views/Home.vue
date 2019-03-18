@@ -32,11 +32,11 @@ export default {
   name: "home",
   data: function() {
     return {
-      files: null,
-      photo: null,
-      imgurls: [],
-      imgstop: [],
-      imgsleft: []
+      files: null,  //uploaded file
+      photo: null,  //displayed photo
+      imgurls: [], //array of urls of currently displayed images
+      imgstop: [], //array of top position of currently displayed images
+      imgsleft: [] //array of left position of currently displayed images
     }
   },
   components: {
@@ -79,9 +79,7 @@ export default {
     moveAll: function(){
       this.$forceUpdate(); //Needed for continuous Moving of images
       var movingDivs = this.imgurls;
-      var arraydifference = this.imgurls.length - this.imgstop.length;
-      console.log(arraydifference + " ARRAYDIFFERENCE");
-      console.log(this.imgstop + "IMGSTOP");
+      var arraydifference = this.imgurls.length - this.imgstop.length;  //used to check wether there are images without style
       if(arraydifference > 0){
         for(var j=0; j<arraydifference; j++){
           var imgleft = Math.floor(Math.random()*300)+ 1 + "px";
@@ -90,16 +88,16 @@ export default {
           this.imgstop.push(imgtop);
         }
       }
-      else if(arraydifference < 0){
+      else if(arraydifference < 0){ //If all images get deleted, also reset position arrays
         this.imgsleft = [];
         this.imgstop = [];
       }
       for (var i=0; i<movingDivs.length; i++){
         if(parseInt(this.imgstop[i], 10) < 1000){
-          this.imgstop[i] = parseInt(this.imgstop[i], 10) + 1 + "px";
+          this.imgstop[i] = parseInt(this.imgstop[i], 10) + 1 + "px"; //Makes all images move down every tick
         }
         else{
-          this.imgstop[i] = 0;
+          this.imgstop[i] = 0; //If below a certain threshold, resets the image positions
         }
 
 
@@ -110,8 +108,8 @@ export default {
     }
   },
   mounted: function(){
-    setInterval(this.getImages.bind(this),3000);
-    setInterval(this.moveAll, 20);
+    setInterval(this.getImages.bind(this),3000);  //binds all images to be downloaded and sets them to be displayed in the viewport
+    setInterval(this.moveAll, 20);  //moves all currently displayed images down every tick
   }
 };
 
