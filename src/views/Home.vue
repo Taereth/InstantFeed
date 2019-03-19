@@ -15,9 +15,13 @@
       <button class="col-4" @click="deleteAll">Delete All Files</button>
     </div>
 
+
+<img class="focusimg" :src="focusimg" @click="toggleBlurBackground('')"/>
+
+
 <div class="row">
   <div id="imagecontainer" class="col-12">
-    <img v-bind:style="{top: imgstop[index], left: imgsleft[index]}" class="webimage" :id="imgurl" v-for="(imgurl, index) in imgurls" :key="imgurl" :src="imgurl">
+    <img v-bind:style="{top: imgstop[index], left: imgsleft[index]}" class="webimage" :id="queueimg" v-for="(queueimg, index) in imgqueue" :key="queueimg" :src="queueimg" @click="toggleBlurBackground(queueimg)">
   </div>
 </div>
 
@@ -34,9 +38,11 @@ export default {
     return {
       files: null,  //uploaded file
       photo: null,  //displayed photo
-      imgurls: [], //array of urls of currently displayed images
+      imgurls: [], //array of urls of all images
       imgstop: [], //array of top position of currently displayed images
-      imgsleft: [] //array of left position of currently displayed images
+      imgsleft: [], //array of left position of currently displayed images
+      imgqueue: [], //array of queued images on startup
+      focusimg: null
     }
   },
   components: {
@@ -77,15 +83,18 @@ export default {
       });
     },
     moveAll: function(){
+
       this.$forceUpdate(); //Needed for continuous Moving of images
-      var movingDivs = this.imgurls;
-      var arraydifference = this.imgurls.length - this.imgstop.length;  //used to check wether there are images without style
+      var movingDivs = this.imgqueue;
+      var arraydifference = this.imgqueue.length - this.imgstop.length;  //used to check wether there are images without style
+      console.log(arraydifference);
       if(arraydifference > 0){
         for(var j=0; j<arraydifference; j++){
           var imgleft = Math.floor(Math.random()*300)+ 1 + "px";
           var imgtop = 0+"px";
           this.imgsleft.push(imgleft);
           this.imgstop.push(imgtop);
+
         }
       }
       else if(arraydifference < 0){ //If all images get deleted, also reset position arrays
@@ -100,15 +109,29 @@ export default {
           this.imgstop[i] = 0; //If below a certain threshold, resets the image positions
         }
 
-
-
-
       }
 
+    },
+    queueImages: function(){
+      var arraydifference = this.imgurls.length - this.imgqueue.length;
+      if(arraydifference > 0){
+        this.imgqueue.push(this.imgurls[this.imgqueue.length])
+      }
+      console.log(this.imgqueue);
+    },
+    toggleBlurBackground: function(queueimg){
+
+      this.focusimg=queueimg;
+      var blurredDivs = document.querySelectorAll(".row");
+        console.log(blurredDivs);
+      for(var i=0;i<blurredDivs.length;i++){
+        blurredDivs[i].classList.toggle("blur");
+      }
     }
   },
   mounted: function(){
     setInterval(this.getImages.bind(this),3000);  //binds all images to be downloaded and sets them to be displayed in the viewport
+    setInterval(this.queueImages, 1000);
     setInterval(this.moveAll, 20);  //moves all currently displayed images down every tick
   }
 };
