@@ -1,28 +1,34 @@
 <template>
   <div class="home">
 
-    <div class="row">
-      <input
-        type="file"
-        id="imageupload"
-        name="imageupload"
-        accept="image/png, image/jpg"
-        ref="fileinput"
-        capture = "user"
-        class="col-4"
-        >
-      <button class="col-4" @click="upload">Upload</button>
-      <button class="col-4" @click="deleteAll">Delete All Files</button>
-    </div>
 
-
-<img class="focusimg" :src="focusimg" @click="toggleBlurBackground('')"/>
+<img class="focusimg hide" :src="focusimg" @click="toggleBlurBackground('')"/>
 
 
 <div class="row">
   <div id="imagecontainer" class="col-12">
     <img v-bind:style="{top: imgstop[index], left: imgsleft[index]}" class="webimage" :id="queueimg" v-for="(queueimg, index) in imgqueue" :key="queueimg" :src="queueimg" @click="toggleBlurBackground(queueimg)">
   </div>
+</div>
+
+<div class="row">
+
+<div class="col-4">
+  <p> </p>
+</div>
+<div class="input-wrapper col-4">
+  <img class="input-img" src="./camera.png" alt="nothing"/>
+  <input
+    type="file"
+    id="imageupload"
+    name="imageupload"
+    accept="image/png, image/jpg"
+    ref="fileinput"
+    capture = "user"
+    @change="upload"
+    >
+</div>
+  <div class="col-4"/>
 </div>
 
 
@@ -65,7 +71,7 @@ export default {
       .then(response => {return response.text();})
     },
     getImages: function(){
-      console.log("In function.");
+
       fetch("/getImages", {
         method: "GET"
       })
@@ -79,7 +85,7 @@ export default {
           tempURLArray.push(tempurl);
         }
         this.imgurls = tempURLArray;
-        console.log(this.imgurls);
+
       });
     },
     moveAll: function(){
@@ -87,7 +93,7 @@ export default {
       this.$forceUpdate(); //Needed for continuous Moving of images
       var movingDivs = this.imgqueue;
       var arraydifference = this.imgqueue.length - this.imgstop.length;  //used to check wether there are images without style
-      console.log(arraydifference);
+
       if(arraydifference > 0){
         for(var j=0; j<arraydifference; j++){
           var imgleft = Math.floor(Math.random()*300)+ 1 + "px";
@@ -107,6 +113,13 @@ export default {
         }
         else{
           this.imgstop[i] = 0; //If below a certain threshold, resets the image positions
+
+          this.imgstop.splice(i,1);
+          this.imgsleft.splice(i,1);
+          this.imgqueue.splice(i,1);
+          this.imgurls.splice(i,1);
+
+
         }
 
       }
@@ -115,15 +128,22 @@ export default {
     queueImages: function(){
       var arraydifference = this.imgurls.length - this.imgqueue.length;
       if(arraydifference > 0){
-        this.imgqueue.push(this.imgurls[this.imgqueue.length])
+        for(var i=0; i<this.imgurls.length; i++){
+          if(!this.imgqueue.includes(this.imgurls[i])){
+            this.imgqueue.push(this.imgurls[i])
+            break;
+          }
+        }
+      }else if(arraydifference < 0){ //If all images get deleted, also reset position arrays
+        this.imgqueue=[];
       }
-      console.log(this.imgqueue);
     },
     toggleBlurBackground: function(queueimg){
 
       this.focusimg=queueimg;
       var blurredDivs = document.querySelectorAll(".row");
-        console.log(blurredDivs);
+      var focusDiv = document.querySelector(".focusimg");
+      focusDiv.classList.toggle("hide");
       for(var i=0;i<blurredDivs.length;i++){
         blurredDivs[i].classList.toggle("blur");
       }

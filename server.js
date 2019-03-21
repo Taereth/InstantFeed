@@ -125,7 +125,7 @@ app.get("/getImages", (req,res,next)=>{
 })
 
 //TODO: Sinnvolles Löschsystem
-//cleanup();
+cleanup();
 
 
 http.listen(process.env.PORT || 8080, function(){
@@ -277,16 +277,16 @@ console.log("in cleanup");
           const db = client.db(nconf.get("mongoDatabase"));
           const collection = db.collection("photos");
 
-          var deletethreshold = new Date( Date.now() - 1000 * 60 );
+          var deletethreshold = new Date( Date.now() - 1000 * 600 );
 
 
 
           console.log(new Date());
           console.log(deletethreshold);
 
-          collection.deleteMany({
-            "date": { $lt : new Date(deletethreshold).toISOString()}
-          })
+          collection.remove({date:{"$lt":deletethreshold}})
+
+
 
           resolve();
           client.close();

@@ -25,7 +25,6 @@
 [class*="col-"] {
   float: left;
   padding: 15px;
-  border: 1px solid red;
 }
 .row::after {
   content: "";
@@ -33,15 +32,21 @@
   display: table;
 }
 .webimage {
-  width: 20%;
+  width: 45%;
   height: auto;
   position: absolute;
+  border-radius: 15%;
+  border-style: solid;
+  border-width: 2px;
+  border-color: black;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 
 }
 
 .blur {
   filter: blur(8px);
   -webkit-filter: blur(8px);
+
 }
 
 .focusimg {
@@ -54,6 +59,35 @@
   margin:auto;
   filter: none;
   -webkit-filter: none;
+  border-radius: 15%;
+  border-style: solid;
+  border-width: 2px;
+  border-color: black;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.hide {
+  display:none;
+}
+
+.input-wrapper {
+  position: relative;
+  overflow: hidden;
+  display: inline-block;
+}
+
+.input-img {
+  position: absolute;
+  width:20%;
+  height: auto;
+}
+
+.input-wrapper input{
+  font-size: 100px;
+  left: 0;
+  top: 0;
+  opacity: 0;
+  width: 20%;
 }
 
 
