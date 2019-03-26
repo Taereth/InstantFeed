@@ -74,20 +74,29 @@
   position: relative;
   overflow: hidden;
   display: inline-block;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  right: 0;
 }
 
 .input-img {
   position: absolute;
   width:20%;
   height: auto;
+  background-color: white;
+  border-radius: 15%;
 }
 
 .input-wrapper input{
   font-size: 100px;
   left: 0;
   top: 0;
+  bottom: 0;
+  right: 0;
   opacity: 0;
   width: 20%;
+  height: 20%;
 }
 
 
