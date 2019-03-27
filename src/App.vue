@@ -35,9 +35,9 @@
   width: 45%;
   height: auto;
   position: absolute;
-  border-radius: 15%;
+  border-radius: 5% 50%;
   border-style: solid;
-  border-width: 2px;
+  border-width: 2%;
   border-color: black;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 
@@ -64,6 +64,11 @@
   border-width: 2px;
   border-color: black;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.bottomrow {
+  position: fixed;
+  bottom: 0;
 }
 
 .hide {
