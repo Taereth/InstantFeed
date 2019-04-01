@@ -76,6 +76,23 @@
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
+.focusimgRand {
+  position: absolute;
+  z-index: 99999;
+  float: left;
+  max-width:100%;
+  max-height:100%;
+  top:0; left:0; right:0; bottom:0;
+  margin:auto;
+  filter: none;
+  -webkit-filter: none;
+  border-radius: 15%;
+  border-style: solid;
+  border-width: 2px;
+  border-color: black;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
 .bottomrow {
   float: left;
   z-index: 100000;

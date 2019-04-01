@@ -1,13 +1,10 @@
 <template>
   <div class="home">
 
-    <p>{{shakeCounter}}</p>
 
+    <p>SHAKE FOR RANDOMNESS</p>
 
-
-
-
-    <img class="focusimg" :src="focusimg"/>
+    <img class="focusimgRand" :src="focusimg"/>
 
 
 
@@ -122,7 +119,6 @@ export default {
     window.addEventListener('shake', this.handleShake.bind(this), false);
 
     document.body.style.backgroundColor = "white";
-    document.body.style.backgroundImage = "";
 
 
 

@@ -124,7 +124,7 @@ export default {
       }
       for (var i=0; i<movingDivs.length; i++){
         if(parseInt(this.imgstop[i], 10) < 1000){
-          this.imgstop[i] = parseInt(this.imgstop[i], 10) + ((1 + this.beta)*this.imgrandomnr[i]) + "px"; //Makes all images move down every tick
+          this.imgstop[i] = parseInt(this.imgstop[i], 10) + ((0.5 + this.beta)*this.imgrandomnr[i]) + "px"; //Makes all images move down every tick
           this.imgsleft[i] = parseInt(this.imgsleft[i], 10) + (this.gamma*this.imgrandomnr[i]) + "px"; //Makes all images move left or right based on orientation
         }
         else{
@@ -185,8 +185,6 @@ export default {
       window.addEventListener('deviceorientation', this.handleOrientation.bind(this));
 
       document.body.style.backgroundColor = "white";
-
-      document.body.style.backgroundImage = "";
 
 
 
