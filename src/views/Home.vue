@@ -18,7 +18,7 @@
 
 
       <div class="col-4">
-        <router-link to="/var1">Variation 2</router-link>
+        <router-link class="navbutton" to="/var1">Variation 2</router-link>
       </div>
       <div class="input-wrapper col-4">
         <img class="input-img" src="./camera.png" alt="nothing"/>
@@ -33,7 +33,7 @@
         >
       </div>
       <div class="col-4">
-        <router-link to="/var2">Variation 3</router-link>
+        <router-link class="navbutton" to="/var2">Variation 3</router-link>
       </div>
     </div>
 
@@ -183,6 +183,10 @@ export default {
 
 
       window.addEventListener('deviceorientation', this.handleOrientation.bind(this));
+
+      document.body.style.backgroundColor = "white";
+
+      document.body.style.backgroundImage = "";
 
 
 

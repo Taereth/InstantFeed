@@ -18,7 +18,7 @@
 
 
       <div class="col-4">
-        <router-link to="/">Variation 1</router-link>
+        <router-link class="navbutton" to="/">Variation 1</router-link>
       </div>
       <div class="input-wrapper col-4">
         <img class="input-img" src="./camera.png" alt="nothing"/>
@@ -33,7 +33,7 @@
         >
       </div>
       <div class="col-4">
-        <router-link to="/var2">Variation 3</router-link>
+        <router-link class="navbutton" to="/var2">Variation 3</router-link>
       </div>
     </div>
 
@@ -187,6 +187,8 @@ export default {
       setInterval(this.getImages.bind(this),3000);  //binds all images to be downloaded and sets them to be displayed in the viewport
       setInterval(this.queueImages, 1000);
       setInterval(this.moveAll, 20);  //moves all currently displayed images down every tick
+
+      document.body.style.backgroundColor = "black";
 
 
 

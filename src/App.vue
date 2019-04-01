@@ -24,7 +24,6 @@
 .col-12 {width: 100%;}
 [class*="col-"] {
   float: left;
-  padding: 15px;
 }
 .row::after {
   content: "";
@@ -78,8 +77,12 @@
 }
 
 .bottomrow {
+  float: left;
+  z-index: 100000;
   position: fixed;
   bottom: 0;
+  left: 0;
+  background-color: black;
 }
 
 .hide {
@@ -90,30 +93,40 @@
   position: relative;
   overflow: hidden;
   display: inline-block;
-  left: 0;
-  top: 0;
-  bottom: 0;
-  right: 0;
+
 }
 
 .input-img {
-  position: absolute;
-  width:20%;
+  width: 100%;
   height: auto;
-  background-color: white;
+  background-color: #ed3330;
   border-radius: 15%;
-}
+  }
 
 .input-wrapper input{
+  position: absolute;
   font-size: 100px;
-  left: 0;
+  height: 500px;
   top: 0;
   bottom: 0;
-  right: 0;
+  left: 0;
+  right: 0 ;
   opacity: 0;
-  width: 20%;
-  height: 20%;
+  width: 100%;
+
 }
+
+.navbutton {
+color: black !important;
+text-transform: uppercase;
+background: #ed3330;
+padding: 20px;
+border-radius: 5px;
+display: inline-block;
+border: none;
+text-decoration: none;
+}
+
 
 
 #app {
