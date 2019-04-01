@@ -18,6 +18,7 @@
     "mongodb": "^3.1.13",
     "multer": "^1.4.1",
     "nconf": "^0.10.0",
+    "shake.js": "^1.2.2",
     "vue": "^2.6.6",
     "vue-router": "^3.0.1",
     "vue-web-cam": "^1.4.3",
@@ -44,7 +45,9 @@
       "plugin:vue/essential",
       "@vue/prettier"
     ],
-    "rules": {"no-console": "off"},
+    "rules": {
+      "no-console": "off"
+    },
     "parserOptions": {
       "parser": "babel-eslint"
     }

@@ -1,6 +1,8 @@
 <template>
   <div class="home">
 
+    <p>{{shakeCounter}}</p>
+
 
 
 
@@ -58,7 +60,8 @@ export default {
       focusimg: null,
       alpha: null,
       beta: null,
-      gamma: null
+      gamma: null,
+      shakeCounter: 0
     }
   },
   components: {
@@ -174,15 +177,32 @@ export default {
         this.alpha=x*3/100;
         this.beta=y*3/100;
         this.gamma=z*3/100;
-      }
+      },
+      handleShake: function () {
+      this.shakeCounter ++;
+   //   console.log(event);
+    }
     },
     mounted: function(){
+
+      var Shake = require('shake.js');
+
+
       setInterval(this.getImages.bind(this),3000);  //binds all images to be downloaded and sets them to be displayed in the viewport
       setInterval(this.queueImages, 1000);
       setInterval(this.moveAll, 20);  //moves all currently displayed images down every tick
 
 
       window.addEventListener('deviceorientation', this.handleOrientation.bind(this));
+
+      let myShakeEvent = new Shake({
+      threshold: 8, // optional shake strength threshold
+      timeout: 500 // optional, determines the frequency of event generation
+    });
+
+    myShakeEvent.start();
+
+    window.addEventListener('shake', this.handleShake.bind(this), false);
 
 
 
