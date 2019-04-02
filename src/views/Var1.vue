@@ -1,5 +1,5 @@
 <template>
-  <div  class="home">
+  <div class="home">
 
 
 
@@ -14,14 +14,14 @@
     </div>
 
 
-    <div class="bottomrow row">
+    <div id="nav4" class="bottomrow row">
 
 
       <div class="col-4">
-        <router-link class="navbutton" to="/">Variation 1</router-link>
+        <router-link id="nav1" class="navbutton" to="/">Variation 1</router-link>
       </div>
       <div class="input-wrapper col-4">
-        <img class="input-img" src="./camera.png" alt="nothing"/>
+        <img class="input-img" id="nav2" src="./camera.png" alt="nothing"/>
         <input
         type="file"
         id="imageupload"
@@ -33,7 +33,7 @@
         >
       </div>
       <div class="col-4">
-        <router-link class="navbutton" to="/var2">Variation 3</router-link>
+        <router-link id="nav3" class="navbutton" to="/var2">Variation 3</router-link>
       </div>
     </div>
 
@@ -185,10 +185,20 @@ export default {
     },
     mounted: function(){
       setInterval(this.getImages.bind(this),3000);  //binds all images to be downloaded and sets them to be displayed in the viewport
-      setInterval(this.queueImages, 1000);
+      setInterval(this.queueImages, 500);
       setInterval(this.moveAll, 20);  //moves all currently displayed images down every tick
 
       document.body.style.backgroundColor = "black";
+      document.body.classList.add("background");
+
+      document.getElementById("nav1").style.borderRadius = "0px";
+      document.getElementById("nav2").style.borderRadius = "0px";
+      document.getElementById("nav3").style.borderRadius = "0px";
+      document.getElementById("nav2").style.backgroundColor = "#7AD7F0";
+      document.getElementById("nav1").style.backgroundColor = "#92DFF3";
+      document.getElementById("nav3").style.backgroundColor = "#92DFF3";
+      document.getElementById("nav4").style.backgroundColor = "#B7E9F7";
+
 
 
 

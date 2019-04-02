@@ -14,14 +14,14 @@
     </div>
 
 
-    <div class="bottomrow row">
+    <div id="nav5" class="bottomrow row">
 
 
-      <div class="col-4">
-        <router-link class="navbutton" to="/var1">Variation 2</router-link>
+      <div  class="col-4">
+        <router-link id="nav6" class="navbutton" to="/var1">Variation 2</router-link>
       </div>
       <div class="input-wrapper col-4">
-        <img class="input-img" src="./camera.png" alt="nothing"/>
+        <img id="nav8" class="input-img" src="./camera.png" alt="nothing"/>
         <input
         type="file"
         id="imageupload"
@@ -33,7 +33,7 @@
         >
       </div>
       <div class="col-4">
-        <router-link class="navbutton" to="/var2">Variation 3</router-link>
+        <router-link id="nav7" class="navbutton" to="/var2">Variation 3</router-link>
       </div>
     </div>
 
@@ -124,7 +124,7 @@ export default {
       }
       for (var i=0; i<movingDivs.length; i++){
         if(parseInt(this.imgstop[i], 10) < 1000){
-          this.imgstop[i] = parseInt(this.imgstop[i], 10) + ((0.5 + this.beta)*this.imgrandomnr[i]) + "px"; //Makes all images move down every tick
+          this.imgstop[i] = parseInt(this.imgstop[i], 10) + ((0.8 + this.beta)*this.imgrandomnr[i]) + "px"; //Makes all images move down every tick
           this.imgsleft[i] = parseInt(this.imgsleft[i], 10) + (this.gamma*this.imgrandomnr[i]) + "px"; //Makes all images move left or right based on orientation
         }
         else{
@@ -184,7 +184,13 @@ export default {
 
       window.addEventListener('deviceorientation', this.handleOrientation.bind(this));
 
-      document.body.style.backgroundColor = "white";
+      document.body.style.backgroundColor = "#7AD7F0";
+
+      document.body.classList.remove("background");
+      document.getElementById("nav5").style.backgroundColor = "#247209";
+      document.getElementById("nav6").style.backgroundColor = "#67B826";
+      document.getElementById("nav7").style.backgroundColor = "#67B826";
+      document.getElementById("nav8").style.backgroundColor = "#88D840";
 
 
 

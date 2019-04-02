@@ -37,18 +37,25 @@
   border-radius: 5% 50%;
   border-style: solid;
   border-width: 2%;
-  border-color: black;
+  border-color: #88D840;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 
 }
+
+.body{
+  overflow: hidden;
+  max-width: 100%;
+  max-height: 100%;
+}
+
 .webimage2 {
   width: 15%;
   height: auto;
   position: absolute;
   border-radius: 50%;
   border-style: solid;
-  border-width: 2%;
-  border-color: white;
+  border-width: 1%;
+  border-color: #DBF3FA;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 
 }
@@ -87,10 +94,6 @@
   filter: none;
   -webkit-filter: none;
   border-radius: 15%;
-  border-style: solid;
-  border-width: 2px;
-  border-color: black;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 .bottomrow {
@@ -144,6 +147,9 @@ border: none;
 text-decoration: none;
 }
 
+.background{
+  background-image: url('../src/assets/starfield.jpg');
+}
 
 
 #app {

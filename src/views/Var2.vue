@@ -120,6 +120,8 @@ export default {
 
     document.body.style.backgroundColor = "white";
 
+    document.body.classList.remove("background");
+
 
 
 

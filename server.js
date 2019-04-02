@@ -277,7 +277,8 @@ console.log("in cleanup");
           const db = client.db(nconf.get("mongoDatabase"));
           const collection = db.collection("photos");
 
-          var deletethreshold = new Date( Date.now() - 1000 * 60000 );
+          var deletethreshold = new Date( Date.now() - (1000 * 120000) );
+          console.log(deletethreshold);
 
 
 

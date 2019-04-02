@@ -3,12 +3,12 @@
   "name": "Instant Feed",
   "icons": [
     {
-      "src": "test.PNG",
+      "src": "test.png",
       "type": "image/png",
       "sizes": "192x192"
     },
     {
-      "src": "test.PNG",
+      "src": "test.png",
       "type": "image/png",
       "sizes": "512x512"
     }
